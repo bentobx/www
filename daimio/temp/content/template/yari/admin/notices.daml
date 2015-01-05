@@ -1,0 +1,18 @@
+{notice get_new | > :notices | ""}
+
+{begin notice_block | if {@notices}}
+{begin js | process escape}
+<script>
+$(document).ready(function(){
+  $('#messages').hide().delay(500).slideDown().delay(5000).slideUp('slow');
+});
+</script>
+{end js}
+<div id="messages">
+  <div class="success notice">
+    {begin notices | merge with @notices}
+    <p>{value}</p>
+    {end notices}
+  </div>
+</div>
+{end notice_block}

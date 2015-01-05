@@ -1,0 +1,7 @@
+{* (
+  :page { * (
+    :title "About Us"
+    :description "History and information about the Bento Box team."
+    :keywords "about Bento Box, workshops, events, bios, directors"
+  )}
+  ) | foreach string "{array union values (value @metadata.{key}) | > {"metadata.{key}"}}" }

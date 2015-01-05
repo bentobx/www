@@ -1,0 +1,25 @@
+<ul class="nav nav-pills nav-stacked">
+    <li class="current"><a href="{@SITE.path}/about">Overview</a></li>
+
+
+    <li class="{:about/great-partners | is in @PAGE.path | then :active}">
+      <a href="{@SITE.path}/about/great-partners" id="load_great-partners">
+        Great Partners
+      </a>
+    </li>
+
+
+    <li class="{:about/team-and-vision | is in @PAGE.path | then :active}">
+      <a href="{@SITE.path}/about/team-and-vision" id="load_team-and-vision">
+        Team <span class="amp">&amp;</span> Vision
+      </a>
+    </li>
+
+
+    <li class="{:about/technology | is in @PAGE.path | then :active}">
+      <a href="{@SITE.path}/about/technology" id="load_technology">
+        Technology
+      </a>
+    </li>
+
+  </ul>

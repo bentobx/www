@@ -1,0 +1,15 @@
+{ifelse (
+  {#page_number} {lens get_articles_by_page page #page_number limit #limit}
+  :default {lens get_articles_published_recent}
+) | > :articles | ""}
+
+
+{/ {data fetch form :comments fields :article_id where {"article_id %= ({@articles.id | array to_csv})"} | array rekey key_by :article_id | > :comments | ""} }
+
+{merge string %template:yari/blog/post with @articles}
+
+{%global/prev_next}
+
+{begin no_articles | if {not @articles}}
+  <p>There are no matching articles.</p>
+{end no_articles}

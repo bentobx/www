@@ -1,0 +1,170 @@
+
+<div class="col-a">
+  {data fetch form :profiles | > :profiles | ""}
+  {%pager}
+  <table border="0" cellspacing="0" cellpadding="0" class="users">
+    <thead>
+      <tr>
+        <th>Real Name</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Added on</th>
+        <th>Actions</th>
+      
+      </tr>
+      
+    </thead>
+    <tbody>
+    {begin profiles | merge with @profiles}
+      {user fetch where "id = {user_id}" | __pipe.#1 | > :user | ""}
+      <tr class="{{not {@user.disabled | is like :0}} | then "disabled"}" id="row-{id}">
+        <td class="title"><span>{firstname} {lastname}</span></td>
+        <td>{@user.username}</td>
+        <td>{array to_csv value @user.keychain}</td>
+        <td class="date">{@user.cron | time represent as "F j, Y"}</td>
+        <td class="actions">
+
+
+
+
+          <ul class="options">
+            <li><a class="button edit open-modal"><span>Edit</span></a>
+              <div class="modal">
+                <form method="post" ENCTYPE="multipart/form-data"  accept-charset="utf-8" class="autoform">
+                  <span class="field_line">
+                    <label for="firstname">First Name</label>
+                    <input type="text" name="firstname" value="{firstname}" class="text">
+                  </span>      
+                  <span class="field_line">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" name="lastname" value="{lastname}" class="text">
+                  </span>
+                  <input type="hidden" name="username" value="{@user.username}" id="username-{@user.username}">
+                  <button input type="submit" value="Add" class="save">Save changes</button>
+                  <textarea name="commands" style="display:none">
+                    {begin verbatim | process escape}
+                      {if {yari user_profile username #username params @POST}
+                      then "{page redirect to {"yari/settings/"}{notice set value "User edited!"}}"}
+                    {end verbatim}
+                  </textarea>
+                </form>
+              </div>
+            </li>
+            {begin disable_block | if {@user.disabled | is like :0}}
+              <li>
+                <form method="post" accept-charset="utf-8" id="user-{@user.username}">
+                  <input type="hidden" name="username" value="{@user.username}" id="username-{@user.username}">
+
+                  <textarea name="commands" id="commands-{@user.username}" style="display:none;">
+                    {begin verbatim | process escape}
+                      {user disable for #username}
+                    {end verbatim}
+                  </textarea>
+                  <button type="submit" value="Disable" class="disable"><span>Disable</span></button>
+                </form>
+              </li>
+            {end disable_block}
+
+            {begin undisable_block | if {not {@user.disabled | is like :0}}}
+              <li>
+                <form method="post" accept-charset="utf-8">
+                  <input type="hidden" name="username" value="{@user.username}">
+                  <textarea name="commands" style="display:none;">
+                    {begin verbatim | process escape}
+                      {user undisable for #username}
+                    {end verbatim}
+                  </textarea>
+                  <button type="submit" value="Enable" class="reenable"><span>Re-enable</span></button>
+
+                </form>
+              </li>
+            {end undisable_block}
+            </ul>
+
+        </td>
+      </tr>
+    {end profiles}
+  </tbody>
+</table>
+
+
+
+</div>
+<div class="col-b">
+
+<div class="boxcap greentea">
+  <div class="bar">
+    <h4>Add New User</h4>
+  </div>
+  <div class="cap"></div>
+  <div class="content">
+  <div id="addform" title="Add new user">
+    <form method="post" accept-charset="utf-8">
+      <span class="field_line">
+        <label for="username">Username</label>
+        <input type="text" name="username" value="" class="text">
+
+      </span>      
+      <span class="field_line">
+        <label for="password">Password</label>
+        <input type="text" name="password" value="" class="text">
+      </span>
+      <span class="field_line">
+        <label for="key">Type:</label>
+        <select name="key">
+          <option value="blogger">Blogger</option>
+          <option value="admin blogger">Admin</option>
+          <option value="commenter">Commenter</option>
+        </select>
+
+      </span>
+      
+      <p class="description" id="type-tip">
+      
+<strong>Commenters</strong> can add comments to blog posts (they can create their own accounts on your blog, too). <strong>Bloggers</strong> can publish and edit their own blog posts and upload images. <strong>Admins</strong> can also add, view and edit all blog posts; edit Pages; and view, edit, and add users.
+      
+      </p>            
+
+    </div>
+    <!-- You can put whatever fields you want here: if they're in the profile form, it should work fine -->
+    <span class="field_line">
+      <label for="firstname">First Name</label>
+      <input type="text" name="firstname" value="" class="text">
+    </span>      
+    <span class="field_line">
+      <label for="lastname">Last Name</label>
+      <input type="text" name="lastname" value="" class="text">
+    </span>      
+    <div class="inputs"> 
+      <button input type="submit" value="Add" class="save">Save</button>
+    </div>
+    <textarea name="commands" style="display:none;">
+    {begin verbatim | process escape}
+      {user add username #username password #password}
+      {user add_key for #username key #key}
+      {yari user_profile username #username params @POST}
+    {end verbatim}
+    </textarea>
+  </form>
+</div>
+  </div>
+</div>
+</div>
+{begin js | process escape}
+<script>
+$(document).ready(function(){
+  
+  $('table.users').tablesorter(
+    {
+      widgets: ['zebra'],
+      headers: {
+      3: { sorter : 'usLongDate' },
+      4: {sorter: false }
+        
+    }
+  }
+)
+// .tablesorterPager({container: $('#pager'),positionFixed: false});
+});
+</script>
+{end js}

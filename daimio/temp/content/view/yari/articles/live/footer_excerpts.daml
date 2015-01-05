@@ -1,0 +1,7 @@
+{lens get_articles_published_recent limit :3 | > :articles | ""}
+
+{data fetch form :comments where {"article_id %= ({@articles.id | array to_csv})"} | array rekey key_by :article_id | > :comments | ""}
+
+<ul id="footer-blog-excerpts">
+{merge string %template:yari/blog/short_list with @articles}
+</ul>

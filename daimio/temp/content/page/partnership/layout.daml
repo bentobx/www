@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-2" id="sidebar">{%sidebar}</div>
+  <div class="col-md-6">{%content}</div>
+  <div class="col-md-4" id="aside">
+<div class="well">
+<h4>Let&#8217;s Talk</h4>
+  <p>Give us a call at (416) 879-8942 or <a href="mailto:info@bentobox.net">drop us a line</a>.</p>
+</div>
+
+
+<h2>Who We Partner With</h2>
+
+<p>We are particularly interested in:</p>
+<ul class="list">
+  <li>Projects that <strong>enable emergent behavior</strong> and empower marginalized users through data and tools that can be freely shared, expanded and modified.</li>
+  <li>Helping individuals make a living or gain insight into and <strong>leverage with powerful institutions</strong>.</li>
+  <li>Supporting cultural assessment, action plans and <strong>change in communities</strong> and corporate workplaces.</li>
+</ul>
+
+
+
+
+
+  </div>
+</div>

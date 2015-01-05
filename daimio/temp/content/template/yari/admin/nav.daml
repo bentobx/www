@@ -1,0 +1,38 @@
+<div id="nav-primary">
+  <ul class="top-level">
+    <li class="parent {if {or ({#2 | is like :articles} {#2 | is like :write})} then :current}">
+      <a href="{@SITE.path}/yari/articles">Articles</a>
+    </li>
+    <!--<li class="parent {if {or ({#2 | is like :class} {#2 | is like :event})} then :current}">
+      <a href="{@SITE.path}/yari/class">Classes</a>
+    </li>  -->  
+    {begin admin | if {:admin | is in @MY.keychain}}
+    <li class="{#2 | is like :pages | then :current}">
+      <a href="{@SITE.path}/yari/pages">Pages</a>
+    </li>
+    {/ <li class="parent {if {or ({#2 | is like :shop} {#2 | is like :product})} then :current}">
+      <a href="{@SITE.path}/yari/shop">Shop</a>
+    </li> }
+    <li class="{#2 | is like :settings | then :current}">
+      <a href="{@SITE.path}/yari/settings">Users</a>
+    </li>
+    {end admin}
+    <li class="{#2 | is like :images | then :current}">
+      <a href="{@SITE.path}/yari/images">Images</a>
+    </li>
+      <li class="{#2 | is like :quotes | then :current}">
+        <a href="{@SITE.path}/yari/quotes">Quotes</a>
+      </li>
+  </ul>
+</div>
+{begin js | process escape}
+<script>
+$(document).ready(function(){
+  $('ul.submenu').hide();
+  $('#nav-primary ul li.parent').bind('mouseenter mouseleave', function(){
+    $(this).children('ul').toggle();
+    $(this).toggleClass('expanded');
+  });
+});
+</script>
+{end js}

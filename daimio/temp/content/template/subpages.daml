@@ -1,0 +1,13 @@
+  {content pick where "tag ~= subpage" | > :subpages}
+  {log :ham}
+
+  {value | > :pageselected | ""} 
+  
+  <select name="{keyword}" id="{keyword}" onchange="">
+    <option value="" {value | is like "" | then "selected"}>None</option>
+
+    {begin subpages | foreach with @subpages}
+    <option value="{value}" {@pageselected | is like value | then "selected"}>{value}</option>
+    {end subpages}
+    
+  </select>

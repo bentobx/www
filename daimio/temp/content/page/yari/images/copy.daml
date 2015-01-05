@@ -1,0 +1,102 @@
+{data fetch form :images where {"id = {id}"} | > :image | ""}
+
+{begin error | foreach with @ERRORS.forms.{form_keyword}.*}
+<div class="error">{value}</div>
+{end error}
+<div class="col-a">
+  {%pager}
+  <table border="0" cellspacing="0" cellpadding="0" class="gallery action-bubbler">
+    <thead>
+      <tr>
+        <th class="thumb">Thumb</th>
+        <th class="path">Path</th>
+        <th>Alt text</th>
+        <th>Subpage Handle</th>
+        <th class="date">Uploaded on</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {begin images | merge with @images}
+      <tr id="row-{id}">
+        <td><img src="{image.url}" alt="{alt}"></td>
+        <td><textarea class="copy_url" onclick="$(this).select();" readonly="readonly">!{image.url}!</textarea></td>
+        <td>{alt}</td>
+        <td>{subpage_handle}</td>
+        
+        <td>{cron | time represent as "F j, Y"}</td>
+        <td>
+
+          <ul class="options">
+            <li>
+              <span class="open-modal"><a class="button edit"><span>Edit</span></a></span>
+               <div class="modal image-editor">
+                    <img src="{image.url}" alt="{alt}">
+                    <h3>{alt}</h3>
+                    <h3>{subpage_handle}</h3>
+                    {form display keyword :images row id}
+                </div>
+                </li>
+            <li>
+              <a title="{title}" class="button delete"><span>Delete</span></a>
+              <form method="post" ENCTYPE="multipart/form-data" accept-charset="utf-8" id="delete_image_{id}">
+                <input type="hidden" name="row" id="row" value="{id}">
+                <textarea name="commands" style="display:none">
+                  {begin verbatim | process escape} 
+                  {if {data destroy form :images rows #row}
+                  then "{page redirect to {"yari/images/"}{notice set value "Image deleted!"}}"
+                }
+                {end verbatim}
+              </textarea>
+              {/ <button onclick="$('#delete_image_{id}').submit();" title="{alt}" class="delete">Delete</button> }
+            </form>
+          </li>
+        </ul>
+        </td>
+        
+
+        
+      </div>
+    </td>
+  </tr>
+
+  {end images}
+</tbody>
+</table>
+</div>
+
+<div class="col-b">
+	<div class="boxcap greentea">
+	<div class="bar">
+		<h4>Add New Image</h4>
+	</div>
+	<div class="cap"></div>
+  <div class="content">
+  {form display keyword :images}
+</div>
+</div>
+
+</div>
+
+
+{begin js | process escape}
+<script>
+// i'll move this somewhere more sensible later
+
+$(document).ready(function(){
+
+
+  $('table.gallery')
+  .tablesorter({
+    widgets: ['zebra'],
+    headers: {
+      0: { sorter: false},
+      1: {sorter: false},
+      4: {sorter: 'usLong'},
+      5: {sorter: false}
+
+      }
+      });
+    });
+    </script>
+    {end js}

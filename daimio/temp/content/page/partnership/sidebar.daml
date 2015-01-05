@@ -1,0 +1,11 @@
+
+<ul class="nav nav-pills nav-stacked">
+
+    <li><a href="{@SITE.path}/partnership">Overview</a></li>
+
+    <li class="{:partnership/faq | is in @PAGE.path | then :active}">
+      <a href="{@SITE.path}/partnership/faq">
+        FAQ
+      </a>
+    </li>
+  </ul>

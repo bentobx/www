@@ -1,0 +1,32 @@
+<nav class="navbar navbar-default">
+<div class="row">
+  <div class="col-md-2">
+    <div class="navbar-header pull-right">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#primary-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{@SITE.path}/" title="home">
+        <img class="img-responsive" style="height: 22px;" src="{@SITE.path}/images/bento_box_logo_201x33.png" id="logo" alt="Bento Box Projects Logo">
+      </a>
+    </div>
+  </div>
+  <div class="col-md-10">
+
+    <div class="collapse navbar-collapse" id="primary-nav">
+      <ul class="nav navbar-nav">
+
+        <li class="{#1 | is like "work-with-us" | then "current"}"><a href="{@SITE.path}/work-with-us" class="primary">Services</a></li>
+        <li class="{#1 | is like "partnership" | then "current"}"><a href="{@SITE.path}/partnership" class="primary">Partnership</a></li>
+        <li class="{#1 | is like "about" | then "current"}"><a href="{@SITE.path}/about" class="primary">About</a></li>
+      </ul>
+      {begin hiring | if {:jobs | is in @PAGE.path | not}}
+
+      <p class="navbar-text navbar-right"><span class="glyphicon glyphicon-hand-right"></span>
+        <a href="{@SITE.path}/jobs" class="navbar-link">We&#8217; Hiring!</a></p>
+      {end hiring}
+    </div>
+  </div>
+</nav>

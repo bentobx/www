@@ -1,0 +1,10 @@
+  {* (
+    :site {* (
+      :name "Bento Box Projects"
+      :description "Bento Box Projects is a Web consulting and application development company in Toronto, Canada."
+      :tagline "Building businesses and Web applications since 1999."
+      :keywords "node development, javascript development, Web applications, Web application development, Daimio, Soba, Bonsai, co-founders, CTO, Toronto, Web consulting"
+    )}
+    :phone ""
+  ) | > :metadata | ""}
+  {%metadata | is like "/some weird string/" | not | then "{%metadata}" | proc | ""}

@@ -1,0 +1,6 @@
+{> :yari.site.name value "Bento Box"}
+{> :yari.client.name value "Bento Box Projects, Inc."}
+{> :yari.mtag.name value "bentoboxproj"}
+{> :yari.site.description value ""}
+{> :yari.site.keywords value ""}
+{> :yari.site.tagline value ""}

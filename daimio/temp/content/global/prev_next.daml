@@ -1,0 +1,35 @@
+
+{/ TODO: count just the total for whatever we're looking at }
+{data count form :articles | > :count | ""}
+{begin previous}
+  <span class="page previous">
+    <a href="{@SITE.path}/blog/page/{#page_number | -: 1}?limit={#limit | then #limit else :10}">&larr; Newer articles</a>
+  </span>
+{end previous}
+{begin next}
+{/ If you're on the blog overview page and there's fewer than 10 total articles and no limit set. }
+
+
+    <span class="page next">
+      <a href="{@SITE.path}/blog/page/{#page_number | +: 1}?limit={#limit | then #limit else :10}">Older articles &rarr;</a>
+    </span>  
+
+  
+  
+{end next}
+{begin back_to_main}
+  <span class="page previous">
+    <a href="{@SITE.path}/blog">&larr; Current articles</a>
+  </span>
+{end back_to_main}
+
+
+{$previous | if {#page_number | less than :2 | not}}
+
+{$back_to_main | if {#page_number | is like :1}}
+
+{$next | if {or (
+  {@count | less than @this_page_max | not}
+  {@count | is like @this_page_max}
+  {#page_number | not}
+)}}

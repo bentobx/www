@@ -1,0 +1,7 @@
+{content pick where "tag = subpage" | string transform old "/.*?(\w+)$/" new "$1" | string transform old "_" new " " | > :subpages | ""}
+
+<ul id="page-tagger">
+  {begin pages | foreach with @subpages}
+  <li>{value}</li>
+  {end pages}
+</ul>

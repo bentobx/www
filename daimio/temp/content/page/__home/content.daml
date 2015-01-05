@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <h2>We build businesses.</h2>
+    <p class="lead box-lunch">Looking for direction and perspective? Facing a choice or dilemma? Got a hunch?<br><strong>We&#8217;d love to help.</strong> <a href="{@SITE.path}/work-with-us">It all starts with lunch.</a></p>
+    <p class="lead partners">Have great big idea or ambitious plan to solve a technology problem? <br><strong>We&#8217;ll be your plan-design-build team.</strong> <a href="{@SITE.path}/partnership">Partner with us.</a></p>
+  </div>
+</div>

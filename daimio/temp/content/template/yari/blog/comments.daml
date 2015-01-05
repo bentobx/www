@@ -1,0 +1,121 @@
+{data fetch form :comments where {"article_id %= ({@articles.id | array to_csv})"} | array sort by {* (:id :desc)} | > :allcomments | ""}
+{@allcomments | array rekey key_by :article_id | > :comments | ""}
+{data fetch form :profiles where {"user_id %= ({@comments.*.user_id | array unique | array to_csv})"} | array rekey key_by :user_id | > :profiles | ""}
+
+
+{begin comment_block | if {or ({@articles.#1.allow_comments | is like "1"} {@comments})}}
+<div id="comments">
+<h3>Comments <span class="count">{@allcomments | array count}</span></h3>
+  <a name="#comments"></a>
+  
+  {begin thankyou | if @notice}
+
+      <p class="alert">{@notice.#1.value}</p>
+
+  {end thankyou}
+  
+  
+  {begin comment_form | if {@articles.#1.allow_comments | is like "1"}}
+  {begin add_comment | if {@MY.id}}
+  <!-- I'm leaving this more or less like I found it, to avoid causing any CSS incompatibilities... -->
+  <form method="post" ENCTYPE="multipart/form-data"  accept-charset="utf-8" class="autoform">
+    <div class="comment">
+      <span class="comment-body">
+      
+        <h5>You are logged in as {@MY.username} (<span onclick="$('#logout').submit();" class="logout">logout</span>). Your comment...</h5>
+        <span class="w"><textarea name="body" id="comment_body" class="text"></textarea></span>
+      </span>
+      <textarea name="commands" style="display:none">
+        {begin verbatim | process escape}
+        {if {data input form :comments values @POST}
+        then "{page redirect to {"blog/{#2}"}{notice set value "Comment added!"}}"
+      }
+      {end verbatim}
+    </textarea>
+    <input type="hidden" name="article_id" id="article_id" value="{#2}">
+    <input type="submit" name="submit" value="Post comment" class="submit">
+  </div>
+</form>
+{end add_comment}
+{begin login | if {not {@MY.id}}}
+<h4>You must log in to leave a comment</h4>
+<div class="login">
+  <h5>Already have an account?</h5>
+  <form method="post" accept-charset="UTF-8" name="loginForm" id="loginForm">
+    <div class="field_line">
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" value="" class="text">      
+    </div>
+    <div class="field_line">
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" value="" class="text">
+    </div>      
+    <div class="field_line">
+      <label>
+        <input type="checkbox" name="days" id="days" value="30">
+        Keep me logged in
+      </label>
+    </div>      
+    <textarea name="commands" style="display:none">
+      {begin verbatim | process escape}
+      {myself authenticate username #username password #password}
+      {end verbatim}
+    </textarea>
+    <input type="submit" name="login_form_submit" value="Sign In" id="login_form_submit" class="submit">
+  </form>
+</div>
+<div class="signup">
+  <h5>Sign up</h5>
+  <form method="post" accept-charset="UTF-8" name="signupForm" id="signupForm">
+    <div class="field_line">
+      <label for="username">Username:</label>
+      <input type="text" name="username" id="username" value="" class="text">
+    </div>
+    <div class="field_line">
+      <label for="password">Password:</label> 
+      <input type="password" name="password" id="password" value="" class="text">
+    </div>
+    <div class="field_line">
+      <label for="firstname">First Name:</label> 
+      <input type="text" name="firstname" id="firstname" value="" onchange="$('name').value= $('firstname').value + ' ' + $('lastname').value" class="text">
+    </div>
+    <div class="field_line">
+      <label for="lastname">Last Name:</label> 
+      <input type="text" name="lastname" id="lastname" value="" onchange="$('name').value= $('firstname').value + ' ' + $('lastname').value" class="text">
+    </div>
+    <div class="field_line">
+      <label for="email">Email:</label> 
+      <input type="text" name="email" id="email" value="" class="text">
+    </div>
+    <input type="hidden" name="name" value="" id="name">
+    <textarea name="commands" style="display:none">
+      {begin verbatim | process escape}
+      {user add username #username password #password}
+      {myself authenticate username #username password #password}
+      {data input form :newsletter values @POST}
+      {data input form :profiles values @POST}
+      {end verbatim}
+    </textarea>
+    <input type="submit" name="signup_form_submit" value="Sign Up" id="signup_form_submit" class="submit">
+  </form>
+</div>
+{end login}
+{end comment_form}
+
+
+  {begin comment_view | merge with @comments.{#2}}
+  <div class="previous_comment">
+    <p class="posted">
+      <span class="username">{@profiles.{user_id}.#1.firstname} {@profiles.{user_id}.#1.lastname}</span>
+      <span class="date">{cron | time represent as "F j, Y g:i a"}</span>
+    </p>
+    <span class="comment-body">
+
+      {body | string textile}
+     
+    </span>
+  </div>
+  {end comment_view}
+  
+</div>
+{end comment_block}

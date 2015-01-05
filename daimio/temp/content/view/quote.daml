@@ -1,0 +1,19 @@
+{begin subpage | if #subpage}
+  {data fetch form :quotes where {"page = '{#1}/{#subpage}'"} | collection random | > :quote | ""}
+{end subpage}
+
+{begin toplevel | if {and ({#subpage | not} {#1})}}
+  {data fetch form :quotes where "page = {#1}" | collection random | > :quote | ""}
+{end toplevel}
+
+{begin random | if {@quote | not}}
+  {data fetch form :quotes | collection random | > :quote | ""}
+{end random}
+
+
+
+<div class="quote">
+  {@quote.text | string textile}
+  <h4>{@quote.attribution}</h4>
+  {@quote.link | then "<a href="{@quote.link}" class="case-study">Case study</a>"}
+</div>

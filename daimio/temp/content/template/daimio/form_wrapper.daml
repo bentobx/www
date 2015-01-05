@@ -1,0 +1,7 @@
+  <div class="{keyword} {@ERRORS.forms.{form}.{keyword} | then "error"}">
+<span class="field_line">
+  
+  {begin label | if {not {type | is in (:hidden :cxbx_single)}}}<label for="{keyword}">{name}</label>{end label}
+  <p class="desc">{description}</p>
+  {input_html}</span>
+  </div>

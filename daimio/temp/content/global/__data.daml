@@ -1,0 +1,8 @@
+{/ {#1 | then {content fetch where {"tag = subpage AND path ~= '{#1}%'"}} | > :subpages} }
+{#1 | then {page fetch where {"path ~= '{#1}/%'"}} | > :subpages}
+{#1 | then {content pick where "tag = raw" | collection to_csv | > :raw_content}}
+
+
+{@subpages | __pipe.path | string transform old {"/{#1}\//"} new "" | > :subpage_titles}
+
+{notice get_new | > :notice} 

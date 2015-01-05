@@ -1,0 +1,6 @@
+<li>
+  <p class="date">{event_start_date | time represent as "M d"}
+    {{:0000 | is in event_end_date | not} | then {"&em; {event_end_date | time represent as "M d"}"}}</p>
+  <a class="title" title="{title}" href="{@SITE.path}/blog/{id}/{publish_date | time represent as "d-m-Y"}/{title | string url_encode}">{title}</a>
+</li>
+{/ <!-- change publish_date to event_date once events stuff is ported from SF-->}

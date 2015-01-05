@@ -1,0 +1,137 @@
+{data fetch form :links | > :links | ""}
+
+  {begin layout}
+  <form method="post" ENCTYPE="multipart/form-data" accept-charset="utf-8" class="links-form" id="links-form-{id}">
+    {fields.url.wrapped_html}
+    {fields.name.wrapped_html}
+    <label>Categories</label>
+    <div id="old-categories">
+    <select class="categories-multiselect">
+      {@links}
+      {merge string "<option value="{value}">{value}</option>" with @links.category}
+    </select>
+    </div>
+    
+    <label for="new-categories">Add new categories</label>
+    <textarea name="new-categories" class="text"></textarea>
+
+    <input type="hidden" name="category" value="">
+    <input type="hidden" name="row" id="row" value="{id}">
+    
+    <textarea name="commands" style="display:none">
+      {begin verbatim | process escape}
+      {if {data input form :links row #row values @POST}
+      then "{notice set value "Link saved!"}{page redirect to "/yari/links"}"
+    }
+    {end verbatim}
+  </textarea>
+      <button type="submit" class="save" name="submit">Save</button>
+</form>
+{end layout}
+
+
+
+<div class="col-a">
+  {%pager}
+  <table border="0" cellspacing="0" cellpadding="0" class="links action-bubbler">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Categories</th>
+        <th>Date added</th>
+      </tr>
+    </thead>
+    <tbody>
+      {begin links | merge with @links}
+      <tr id="row-{id}">
+        <td class="title">{name}</td>
+        <td>
+          {category} asdf
+          {if category 
+              then "{merge string "<span class="category">{value}</span>" with category}" 
+              else "<span class="nada">None</span>"
+            }</td>
+        <td class="date">{cron | time represent as "F j, Y"}
+          <!-- i didn't want to put this here but i couldn't figure out how to prevent mouseout from firing when it was outside its parent-->
+          <div id="actions_row-{id}" class="action-bubble">
+            <button class="open-modal edit">Edit</button>
+            <div class="modal">
+              {form display keyword :links row {id} layout $layout}
+            </div>
+            {begin url | if url | else "None"}
+            <a href="{url | string sanitize}" title="{name}" class="button view">View</a>
+            {end url}
+            <form method="post" ENCTYPE="multipart/form-data" accept-charset="utf-8" id="delete_link_{id}">
+              <input type="hidden" name="row" id="row" value="{id}">
+              <textarea name="commands" style="display:none">
+                {begin verbatim | process escape} 
+                {if {data destroy form :links rows #row}
+                then "{page redirect to {"yari/links/"}{notice set value "Link deleted"}}"}
+                {end verbatim}
+              </textarea>
+              <button onclick="$('#delete_link_{id}').submit();" title="{name}" class="delete">Delete</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      {end links}
+    </tbody>   
+  </table>
+</div>
+<div class="col-b">
+
+
+<div class="boxcap greentea">
+	<div class="bar">
+		<h4>Add New Link</h4>
+	</div>
+	<div class="cap"></div>
+  <div class="content">
+{form display keyword :links layout $layout}
+</div>
+</div>
+
+</div>
+{begin js | process escape}
+<script>
+$(document).ready(function() {
+       var old_cats = [];
+    
+    $('.categories-multiselect').multiSelect();
+    
+    $('form.form-links').each(function(){
+    $('button.save').click(function() {
+        $('.multiSelectOptions :checked').each(function(i, checked) {
+            old_cats[i] = $(checked).val();
+        });
+    var new_cats = $('.links-form textarea[name=new-categories]').val();
+
+    $('.links-form input[name=category]').val(old_cats + ',' + new_cats);
+    });
+        });
+    $('table.links').tablesorter({
+        widgets: ['zebra'],
+        headers: {
+            3: {
+                sorter: 'usLongDate'
+            },
+            4: {
+                sorter: false
+            }
+        }
+    })
+    .tablesorterPager({
+        container: $('#pager'),
+        positionFixed: false
+    });
+   
+    $('.links-form textarea[name=new-categories]').hide(); 
+    $('.links-form label[for=new-categories]').click(function(){
+     $(this).next().toggle();
+     $(this).toggleClass('expanded');
+   
+    
+});    
+});
+    </script>
+    {end js}

@@ -1,0 +1,22 @@
+{begin not_logged_in | if {not {:blogger | is in @MY.keychain}}}
+{%login}
+{end not_logged_in}
+{begin logged_in | if {and ({:blogger | is in @MY.keychain} {not #2})}}
+<ul class="big-options">
+  <li><a href="{@SITE.path}/yari/write">Write a new blog post</a></li>
+  <li><a href="{@SITE.path}/yari/articles">View all blog posts</a></li>
+  {begin admin | if {:admin | is in @MY.keychain}}
+  <li><a href="{@SITE.path}/yari/pages">View all editable pages</a></li>
+  <li><a href="{@SITE.path}/yari/settings">Manage users</a></li>
+  <li><a href="{@SITE.path}/yari/shop">Manage store</a></li>  
+  {end admin}
+  <!-- <li class="classes break"><a href="{@SITE.path}/yari/class">Add a class</a></li>  
+   <li class="classes"><h3>Add date for an existing class:</h3>
+     <ul>
+       {begin classes | merge with @class_list}
+       <li><a href="{@SITE.path}/yari/event?class={id}">{title}</li>
+         {end classes}
+       </ul>
+     </li> -->
+  </ul>
+  {end logged_in}

@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col-md-6">
+
+  <h2>A little history</h2>
+
+
+  <p>Bento Box Media was founded in Vancouver in 1999 by Henry Faber and Dave Duprey. In 2002, we launched Toy Temp, our game division and Xeropolis, our complete technical services and hosting division.</p>
+
+  <p>Dave and Henry formed Bento Box with the intent of offering harmony between the information, presentation and technical elements of modern communication.</p>
+
+
+  <p class="lead">We enjoyed international recognition for our print and Web design work, successful marketing campaigns and technology. We also quickly found that we could offer our clients a lot more than agency-style services, and that more and more were coming to us for strategic guidance.</p>
+
+  <p>In 2003, we began our transformation into a Web consulting team, with unique technical, design, and business strengths. Since then, we&#8217;ve been helping companies undergo strategic change to successfully carry out business online.</p>
+
+  <p>Over the years, we&#8217;ve had the good fortune to work with:</p>
+
+
+  <ul class="list-unstyled list-clients">
+    <li><span class="caps">CBC</span></li>
+    <li>Antarti.ca</li>
+    <li>Circlesquare</li>
+    <li>Bentall Capital</li>
+    <li>The David Suzuki Foundation</li>
+    <li><em>DaVinci's Inquest</em></li>
+    <li><span class="caps">CTV</span></li>
+    <li>Federal <span class="caps">NDP</span></li>
+    <li>Adbusters</li>
+    <li>Greenpeace</li>
+    <li>Ellis Foster</li>
+    <li>Haddock Entertainment</li>
+    <li>Lunapads International</li>
+    <li>Bright Neighbor</li>
+    <li>Audit Tree, Inc.</li>
+    <li>Joel Bakan/Mark Akbar (<em>The Corporation</em>)</li>
+    <li>Purdue Pharma</li>
+    <li>Pangaea Consultants</li>
+    <li>Saleboat</li>
+
+  </ul>
+  <p>And many more!</p>
+</div>
+  <div class="col-md-6">
+
+
+    <h2>Partners</h2>
+
+    <h3>Henry Faber <small>Principal, founder</small></h3>
+    <p>Henry extends design principles into business strategy, problem-solving and relationship-building techniques that turn great ideas into successful products. He excels at making the complex understandable, and the understandable executable. A graduate of Emily Carr’s New Media program, he has worked as a designer, consultant and mentor for clients and organizations throughout North America.</p>
+
+
+    <h3>Dann Toliver <small>Principal, technical director</small></h3>
+
+    <p>Dann leads the technical development of all our projects, drawing on 25 years of programming experience — from Apple ][+ games to Daimio.</p>
+
+
+    <h3>Jennie Robinson <small>Principal, product director</small></h3>
+
+    <p>Born and raised in Alaska, Jennie grew up writing, playing video games and coding weird art in the &#8216;90s. Now she&#8217;s a recovering prescriptivist editor, product strategist, front-end developer and <a href="http://dmg.to">advocate for women in game development</a>. Uniquely skilled across design, editorial and technical disciplines, Jennie draws on her radio, TV news, and content strategy background to translate documentation and conversations into real user goals and create refined, useful, usable applications.</p>
+    <h2>Other Projects</h2>
+
+<h3>Bento Miso</h3>
+    <p>We founded, operate, and work out of a vibrant coworking community of 160+ members&#8212;from developers to game designers, artists to activists&#8212;in Toronto's Queen West neighborhood.</p>
+
+    <p><a href="https://bentomiso.com">Drop by and work with us sometime!</a></p>
+
+<h3>Daimio</h3>
+
+<p>Our system for building programmable applications.</p>
+<p>Web applications are rarely customizable—you can’t tailor interfaces, extend functionality, or publish your modifications. Daimio makes bottom-up change possible by expressing every action your application can perform in a dialect of a language, and making execution contexts that speak different subsets of that dialect accessible.</p>
+
+<p>
+  <a href="http://daimio.org/">Learn more, try it out online, and download Daimio</a>
+</p>
+  </div>
+
+</div>

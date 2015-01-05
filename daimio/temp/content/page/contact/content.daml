@@ -1,0 +1,14 @@
+<div class="address">
+  <div id="ontario" class="vcard">
+    <div class="org"><strong>Bento Box Projects, Inc.</strong></div>
+    <div class="adr">
+      <div class="street-address">100-862 Richmond Street</div>
+      <span class="locality">Toronto</span>,
+      <span class="region">ON</span>
+      <span class="postal-code"></span>
+      <span class="country-name">Canada</span>
+    </div>
+    <div class="tel">(416) 879-8942</div>
+    <div class="url hide">http://bentobox.net</div>
+  </div>
+</div>

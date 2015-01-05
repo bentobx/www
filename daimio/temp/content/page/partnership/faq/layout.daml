@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col-md-2" id="sidebar">{%sidebar}</div>
+  <div class="col-md-6">{%content}</div>
+  <div class="col-md-4" id="aside">
+    <div class="well">
+      <h4>More questions? Ready to dive in?</h4>
+      <p>Give us a call at (416) 879-8942 or <a href="mailto:info@bentobox.net">drop us a line</a>.</p>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,19 @@
+{page pick where "tag = toplevel" | > :pages | ""}
+{content pick where "tag = subpage" | string transform old "/page\//" new "" | > :subpages | ""}
+
+<p class="desc">Quotes are randomized unless you select a page.</p>
+
+{value | > :selected | ""} 
+<select name="{keyword}" id="{keyword}" onchange="">
+  <optgroup label="Top level pages">
+    {begin pages | foreach with @pages}
+      <option value="{value}" {@selected | is like value | then "selected"}>{value}</option>
+    {end pages}
+  </optgroup>
+  <optgroup label="Sub pages">
+    {begin pages | foreach with @subpages}
+      <option value="{value}" {@selected | is like value | then "selected"}>{value}</option>
+    {end pages}
+  </optgroup>
+  <option value="" {value | is like "" | then "selected"}>None</option>
+</select>

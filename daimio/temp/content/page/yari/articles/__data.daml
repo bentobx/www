@@ -1,0 +1,12 @@
+
+{/article overview}
+
+  {data fetch form :articles order "publish_date DESC" limit {#limit | else :10} | > :articles}
+
+  {data fetch form :comments | > :comments}
+  {data fetch form :comments where {"{id} %= ({@articles.id | array to_csv})"} | array rekey key_by :article_id | > :article_comments}
+  {begin tags | if #tag}
+    {data fetch form :articles where "tags = {#tag}" order "publish_date DESC" | > :articles}
+  {end tags}
+
+{%page/yari/__data | process consume}

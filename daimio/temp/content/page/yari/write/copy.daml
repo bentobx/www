@@ -1,0 +1,172 @@
+{begin error | foreach with @ERRORS.forms.{form_keyword}.*}
+<div class="error">{value}</div>
+{end error}
+
+{if id then "<h2>{@articles.{id}.title} <a class="url" href="{@SITE.path}/blog/{@articles.{id}.id}/{@articles.{id}.title | string url_encode}">{@SITE.path}/blog/{@articles.{id}.id}/{@articles.{id}.title | string url_encode}</a></h2> " else ""}
+
+{begin tabs | if @comments.{id}}
+<!-- only show tabs if there are comments on this article -->
+<div id="tabs" class="dual">
+  <ul>
+    <li><a href="#tab-write">Article</a></li>
+    <li><a href="#tab-comments">Comments ({@comments.{id} | collection count})</a></li>
+  </ul>
+  {end tabs}
+  {begin layout}
+
+  <div id="tab-write" class="{@articles.{id}.status}">
+    <form method="post" ENCTYPE="multipart/form-data" accept-charset="utf-8">
+      <div class="boxcap greentea big">
+        <div class="bar">
+          <h4>{if id then "Editing Article" else "New Article"}</h4>
+          <div class="actions">
+            <p>This article is currently <strong>{{{@articles.{id}.status} | is like :live} | then "live" | else "a draft"}</strong>.</p>
+            <button type="submit" name="submit" id="submit-draft" value="Save" class="save big"
+            onclick="$('.status option:contains(draft)').attr('selected', true);$('#submit-live').attr('disabled', true);">Save draft</button>
+            <button type="submit" name="submit" id="submit-live" value="Save" class="save big" onclick="$('.status option:contains(live)').attr('selected', true);$('#submit-draft').attr('disabled', true);$('#content').removeClass('draft');">
+              {{{@articles.{id}.status} | is like :live} | then "Save changes" | else "Publish"}
+            </button>
+          </div>
+        </div>
+        <div class="cap"></div>
+        <div class="content">
+
+          <div id="main">
+            <!-- <h2>
+              {id | then "Edit" else "Write"} Article
+            </h2>-->
+            {fields.title.wrapped_html}
+            {fields.body.wrapped_html}
+            {fields.summary.wrapped_html}
+
+          </div>
+          <div id="col-right" class="advanced">
+            <!--<h2>Advanced Options</h2>-->
+            {fields.status.wrapped_html}
+            <div class="tip" id="status-tip">
+              <div class="tip-content" id="status-tip_content">
+                <p>Publish now or save as a draft.</p>
+              </div>
+            </div>
+            {fields.tags.wrapped_html}
+            {fields.page.wrapped_html}
+
+            <div class="allow_comments">{fields.allow_comments.input_html}</div>
+            
+{fields.publish_date.wrapped_html}
+
+
+<div id="events">
+  <p>Be sure to tag this article with "Events" if you want this to be listed in the events section.</p>
+  {fields.event_start_date.wrapped_html}
+  {fields.event_end_date.wrapped_html}            
+</div>
+
+
+          </div>
+          <input type="hidden" name="row_id" value="{id}">
+          <textarea name="commands" style="display:none">
+            {begin verbatim | sub with id as :row | process escape}
+            {if {data input form :articles row #row_id values @POST}
+            then "{notice set value :Saved!}{page redirect to "/yari/articles"}"
+          }
+          {end verbatim}
+        </textarea>
+      </div>       
+    </div>
+  </form>
+</div>
+{end layout}
+
+{form display keyword :articles row id layout $layout}
+{begin tabs | if @comments.{id}}
+<div id="tab-comments">
+  <table border="0" cellspacing="0" cellpadding="0" class="comments action-bubbler">
+    <thead>
+      <tr>
+        <th class="comment">Comment</th>
+        <th class="commenter">Commenter</th>
+        <th class="date">Date posted</th>
+      </tr>
+    </thead>
+    <tbody>
+      {begin comments | merge with @comments.{id}}
+      <tr id="row-{id}">
+        <td>{body | string textile}</td>
+        <td>{@profiles.{user_id}.#1.firstname} {@profiles.{user_id}.#1.lastname}</td>
+        <td>{cron | time represent as "F j, Y"}
+          <div id="actions_row-{id}" class="action-bubble">
+            <button class="open-modal edit">Edit</button>
+            <div class="modal">
+              <form method="post" ENCTYPE="multipart/form-data"  accept-charset="utf-8" class="autoform">
+                <div class="comment">
+                  <span class="comment-body">
+                    <span class="w"><textarea name="body" id="comment_body" class="text">{body}</textarea></span></span>
+                    <input type="hidden" name="row" id="row" value="{id}">
+                    <input type="hidden" name="article_id" id="article_id" value="{id}">
+                    <button type="submit" name="submit" class="submit">Save changes</button>
+                    <textarea name="commands" style="display:none">
+                      {begin verbatim | process escape}
+                      {if {data input form :comments row #row values @POST}
+                      then "{page redirect to {"yari/write/{id}#tab-comments"}{notice set value "Comment edited"}}"
+                    }
+                    {end verbatim}
+                  </textarea>
+                </div>
+              </form>
+            </div>
+            <form method="post" ENCTYPE="multipart/form-data" accept-charset="utf-8" id="delete_comment_{id}">
+              <input type="hidden" name="row" id="row" value="{id}">
+              <input type="hidden" name="article_id" id="article_id" value="{id}">
+              <textarea name="commands" style="display:none">
+                {begin verbatim | process escape} 
+                {if {data destroy form :comments rows #row}
+                then "{page redirect to {"yari/write/{id}#tab-comments"}{notice set value "Comment deleted"}}"
+              }
+              {end verbatim}
+            </textarea>
+            <button onclick="$('#delete_comment_{id}').submit();" title="{@profiles.{user_id}.#1.firstname} {@profiles.{user_id}.#1.lastname}'s comment '{body | string truncate length :20}...'" class="delete">Delete</button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    {end comments}
+  </tbody>
+</table>
+</div>
+
+<!-- only close the div#tabs if there are comments -->
+</div>
+{end tabs}
+
+{begin js | process escape}
+<script>
+$(function() {
+  $(".datetime").datepicker();	
+});
+$(document).ready(function(){
+  $('div.status').hide();
+  $('textarea#body,textarea#summary').markItUp(textileSettings);
+  $('table.comments').tablesorter(
+    {	widthFixed: true,
+      widgets: ['zebra'],
+      headers: {
+        2: { sorter : 'usLongDate' },
+        1: { sorter: false},
+        3: { sorter: false}
+      }
+    }
+  )
+});
+</script>
+{end js}
+{begin tabs | if @comments.{id}}
+<!-- only initialize tabs if there are comments on this article -->
+{begin js | process escape}
+<script>
+$(document).ready(function(){
+  $('#tabs').tabs()
+});
+</script>
+{end js}
+{end tabs}

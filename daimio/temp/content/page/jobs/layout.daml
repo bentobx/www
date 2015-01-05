@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-2" id="sidebar">{%sidebar}</div>
+  <div class="col-md-6">{%content}</div>
+  <div class="col-md-4" id="aside">
+<a class="btn btn-primary btn-lg" href="https://www.linkedin.com/jobs2/view/25850611">Apply</a>
+
+    <h3>Benefits</h3>
+    <p>We offer a competitive salary, extended health benefits package, professional development and mentoring opportunities, monthly transit passes and a vibrant workplace and community of creative technologists.</p>
+    <p>We'll set you up with a Mac laptop + monitor plus any software you need.</p>
+    <h3>Vacation</h3>
+    <p>We insist you take at least 2 weeks off each year, and are flexible about additional vacation time.</p>
+
+    <h3>Location</h3>
+    <p>Our office in Toronto’s Queen West neighborhood, just a few steps from the gates of Trinity-Bellwoods Park.</p>
+    <h3>Schedule</h3>
+    <p>Monday-Friday, 11 a.m.-6 p.m. (35 hours/week)</p>
+
+    <h3>Accessibility</h3>
+    <p><em>Our workplace is accessible to those who rely on assistive devices, and we welcome and encourage applications from individuals with disabilities. We are happy to make adjustments to job duties and our facilities to accommodate and support qualified candidates.</em></p>
+  </div>
+</div>

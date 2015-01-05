@@ -1,0 +1,1 @@
+ <li><input type="checkbox" name="{keyword}[]" id="{keyword}" value="{value}"> <label for="{keyword}" {@selected | is like value}>{value}</label></li>

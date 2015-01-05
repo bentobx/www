@@ -1,0 +1,80 @@
+{data fetch form :profiles where "user_id = {user_id}" | > :profile | ""}
+{process merge string "{firstname} {lastname}" with @profile | > :author | ""}
+  <div class="entry">
+    <div class="summary">
+      {{#2 | is like "/^\d+$/"} | then "<h2>" else "<h3>"}<a href="{@SITE.path}/blog/{id}/{publish_date | time represent as "d-m-Y"}/{title |  string url_encode}">{title}</a>
+
+        {/ {begin some_comments | if {@comments.{id}}}
+        <a href="{@SITE.path}/blog/{id}#comments" class="comments">
+          <span class="comment-count">{@comments.{id} | array count} {if {{@comments.{id} | array count} | is like :1} then "comment" else "comments"}</span>
+        </a>
+        {end some_comments} }
+        {{#2 | is like "/^\d+$/"} | then "</h2>" else "</h3>"}
+        
+        {begin event}
+          <p class="date">
+            Event date:
+            {begin multiday}
+              {event_start_date | time represent as "M d"}
+              {begin end_date | if {:0000 | is in event_end_date | not}}
+                - {event_end_date | time represent as "M d"}
+              {end end_date}  
+            {end multiday}
+            {begin oneday | if {event_end_date | is like event_start_date} else $multiday}
+              {event_start_date | time represent as "M d"}
+            {end oneday}
+            
+            
+          </p>
+        {end event}
+        {begin meta | if {:Events | is in tags.value | not} else $event}
+
+        <ul class="meta">
+          <li class="author">Posted by <span class="author_username"><a href="{@SITE.path}/blog/user/{user_id}">{@author}</a></span></li>
+          <li class="date-slug"><span class="date">{publish_date | time represent as "l, F j, Y"}</span></li>
+          {/ {begin tags | if tags}
+                    <li class="tags">
+                      <span class="tags">
+                        <ul>
+                          {begin tag | merge with tags}
+                          <li class="{value}"><a href="{@SITE.path}/blog/tag/{stripped_value}">{value}</a></li>
+                          {end tag}
+                        </ul>
+                      </span>
+                      {end tags} }
+          </li>
+        </ul>
+        {end meta}
+        
+
+
+      </div>
+           <div id="flickr_badge_uber_wrapper">
+              <div id="flickr_badge_wrapper">
+                <script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=10&display=latest&size=s&layout=x&source=all_tag&tag={@yari.mtag.name}:post={id}"></script>
+              </div>
+            </div> 
+      
+      <div class="post_body">
+        {begin summary | if {not {#2 | is like "/^\d+$/"}}}
+        {summary | else {body | string truncate length :150} | string textile}
+        {end summary}
+        {begin full | if {#2 | is like "/^\d+$/"}}
+        {body | string textile}
+
+        <a href="http://twitter.com/share" class="twitter-share-button" data-text="From the Bento Box blog: {title}" data-count="none">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+        <!-- Place this tag where you want the +1 button to render -->
+        <g:plusone size="medium"></g:plusone>
+
+        {end full}
+        <div class="extras">
+          {begin readmore | if {not {#2 | is like "/^\d+$/"}}}
+          <a title="{title}" class="more" href="{@SITE.path}/blog/{id}/{title | string url_encode}">Read more...</a>
+          {begin invite | if {and ({allow_comments | is like "1"} {not {#2 | is like "/^\d+$/"}})}}
+          <a href="{@SITE.path}/blog/{id}#comments" class="add-comment">Add a comment</a>
+          {end invite}
+          {end readmore}
+        </div>
+      </div>
+    </div>

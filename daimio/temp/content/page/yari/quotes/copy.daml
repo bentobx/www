@@ -1,0 +1,104 @@
+{begin error | foreach with @ERRORS.forms.{form_keyword}.*}
+  <div class="error">{value}</div>
+{end error}
+
+
+
+{data fetch form :quotes | > :quotes | ""}
+<div class="col-a">
+
+  {%pager}
+  <table border="0" cellspacing="0" cellpadding="0" class="action-bubbler">
+    <thead>
+      <tr>
+        <th>Text</th>
+        <th>Attribution</th>
+        <th>Case study link</th>
+        <th>Page</th>
+        <th>Actions</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+      {begin quotes | merge with @quotes}
+        <tr id="row-{id}">
+          <td>
+            {text | string truncate length :50 | string textile}...
+          
+                
+          </td>
+          <td>{attribution}</td>
+          <td>{link}</td>
+          <td>{page}</td>
+          <td>
+
+            <ul class="options">
+              <li>
+                <span class="open-modal"><a class="button edit"><span>Edit</span></a></span>
+                <div class="modal image-editor">
+                  {form display keyword :quotes row id}
+                </div>
+              </li>
+              <li>
+                <a title="{title}" class="button delete"><span>Delete</span></a>
+                <form method="post" ENCTYPE="multipart/form-data" accept-charset="utf-8" id="delete_quote_{id}">
+                  <input type="hidden" name="row" id="row" value="{id}">
+                  <textarea name="commands" style="display:none">
+                    {begin verbatim | process escape} 
+                      {if {data destroy form :quotes rows #row}
+                      then "{page redirect to {"yari/quotes/"}{notice set value "Quote deleted!"}}"
+                    }
+                  {end verbatim}
+                </textarea>
+                {/ <button onclick="$('#delete_image_{id}').submit();" title="{alt}" class="delete">Delete</button> }
+              </form>
+            </li>
+          </ul>
+        </td>
+        </tr>  
+      {end quotes}
+    </tbody>
+  </table>
+
+</div>
+
+<div class="col-b">
+
+  <div class="boxcap greentea">
+    <div class="bar">
+      <h4>Add New Quote</h4>
+    </div>
+    <div class="cap"></div>
+    <div class="content">
+      <div id="addform" title="Add new quote">
+        {form display keyword :quotes}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{/ {data fetch form :quotes where "id = {#id}" | > :quote}  }
+
+{begin js | process escape}
+<script>
+$(document).ready(function(){
+  $('table').tablesorter({
+      widgets: ['zebra'],
+      headers: {
+          0: {
+              sorter: false
+          },
+          4: {
+              sorter: false
+          }
+      }
+
+  });
+});
+</script>
+{end js}
+
+
+

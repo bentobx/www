@@ -1,0 +1,16 @@
+<li>
+  {data fetch form :profiles where "user_id = {user_id}" | > :profile | ""}
+  {process merge string "{firstname} {lastname}" with @profile | > :author | ""}
+  
+  <a class="title" title="{title}" href="{@SITE.path}/blog/{id}/{publish_date | time represent as "d-m-Y"}/{title | string url_encode}">{title}</a>
+  
+  <span class="author"><span class="author_username"><a href="{@SITE.path}/blog/user/{user_id}">{@author}</a></span> / {publish_date | time represent as "M d"}</span>
+
+  {begin some_comments | if @comments.{id}}
+    
+  <a href="{@SITE.path}/blog/{id}#comments" class="comments">
+    <span class="comment-count">{@comments.{id} | array count} {if {{@comments.{id} | array count} | is like :1} then "comment" else "comments"}</span>
+  </a>
+  {end some_comments}
+  
+</li>

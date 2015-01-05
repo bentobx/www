@@ -1,0 +1,64 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  {%global/metadata | proc | ""}
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>{ifelse ({@metadata.page.title} "Bento Box Projects > {@metadata.page.title}" :default "Bento Box Projects")}</title>
+  <meta name="google-site-verification" content="3C3TeeL2CMmS1hkvjlbvU5mIJAldrGjIJJymEmtnVIc" />
+  <meta name="description" content="{@metadata.site.description}">
+  <meta name="keywords" content="{@metadata.site.keywords}">
+  <meta name="author" content="{@metadata.client.name}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" type="image/ico" href="{@SITE.path}/images/favicon.ico">
+  <link rel="stylesheet" href="{@SITE.path}/css/main.css">
+  <link rel="stylesheet" href="{@SITE.path}/css/main.css">
+  <script src="{@SITE.path}/js/jquery.min.js"></script>
+
+  <script src="{@SITE.path}/js/modernizr.js"></script>
+
+  {begin js | process escape}
+  <script src="//use.typekit.net/vlf5rex.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <!-- // Google Analytics -->
+  {end js}
+
+
+</head>
+<body>
+  <div id="nav-header">
+    <div class="container-fluid">
+      {%global/nav}
+    </div>
+
+  </div>
+
+  <div class="container-fluid">
+    {begin master_layout | if {%layout | not} else %layout}
+    <div class="row">
+      <div class="col-md-2" id="sidebar">{%sidebar}</div>
+      <div class="col-md-6">{%content}</div>
+    </div>
+
+    {end master_layout}
+
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <p class="copyright">&copy; 1999-{time represent as :Y} Bento Box Projects, Inc.</p>
+        <p><small>(416) 879-8942 &bull; <a href="mailto:info@bentobox.net">e-mail</a> &bull; 100-862 Richmond St W., Toronto</small></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

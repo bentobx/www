@@ -1,0 +1,75 @@
+<form method="post" ENCTYPE="multipart/form-data" accept-charset="utf-8">
+  <div class="boxcap greentea big">
+    <div class="bar">
+      <h4>{if #2 | then "Adding" | else "Editing"} Product</h4>
+      <div class="actions">
+        <button type="submit" name="submit" id="submit-live" value="Save" class="save big">Save</button>
+      </div>
+
+
+    </div>
+    <div class="cap"></div>
+
+  
+    {begin layout}
+    <div class="content">
+      <div id="main">
+        {fields.item_name.wrapped_html}
+        {fields.item_number.wrapped_html}
+        <div class="price ">
+          <span class="field_line">
+            <label for="price">Price</label>
+            <div class="price-line"><div class="dolla">{@currency_symbol}</div>
+            <input type="text" name="price" id="price" class="text" value="{fields.price.value | else :20}">
+            <div class="currency">{@currency}</div></div>
+          </span>
+        </div>
+        {fields.description.wrapped_html}  
+        {fields.image.wrapped_html}
+        <div id="slider">
+          <ul id="image-list" class="image-list">
+            {begin links | foreach with fields.image.value}
+            <li><a href="{value.url}"><img src="{value.url.#1}" alt="{title}"></a></li>
+            {end links}
+          </ul>
+        </div>
+      </div>
+      <div id="col-right" class="advanced">
+        <label>Options</label>
+        <div class="option-group">
+          <div class="option-name">{fields.option_list_1_name.wrapped_html}
+          </div>
+          <div class="option-tags">{fields.option_list_1_choices.wrapped_html}
+          </div>
+        </div>
+        <div class="option-group">
+          <div class="option-name">{fields.option_list_2_name.wrapped_html}</div>
+          <div class="option-tags">{fields.option_list_2_choices.wrapped_html}</div>
+        </div>
+        {fields.undefined_quantity.wrapped_html}
+
+      </div>
+      <input type="hidden" name="row_id" value="{#3}">
+      <textarea name="commands" style="display:none">
+      {begin verbatim | sub with #3 as :row | process escape}
+        {if {data input form :products row #row_id values @POST}
+          then "{notice set value :Saved!}{page redirect to "/yari/product/{#3}"}"
+        }
+      {end verbatim}
+      </textarea>
+    </div>
+  </form>           
+{end layout}
+
+{form display keyword :products row #3 layout $layout}
+
+
+{begin js | process escape}
+<script>
+$(document).ready(function(){
+  $("#slider").easySlider({
+    numeric: true
+  });
+});
+</script>
+{end js}

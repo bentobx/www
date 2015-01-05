@@ -1,0 +1,10 @@
+From {name} ({email})
+Company: {company}
+Ph: {phone}
+Job title/role: {job_title}
+-----------------------------------
+{services}
+-----------------------------------
+{message}
+
+

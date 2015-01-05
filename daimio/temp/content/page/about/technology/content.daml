@@ -1,0 +1,22 @@
+  <h2>Putting code to the road</h2>
+  <p class="lead">Our technology stack is designed from the bottom up for rapid iteration. It allows us to build new features and interfaces quickly, so we can test ideas and make product design decisions without deep technical development.</p>
+  <h2>Framework</h2>
+  <p><strong>Daimio</strong> is the <span class="caps">PHP</span>-based framework that allows us to create, iterate, and prototype Web applications quickly. Daimio speaks <span class="caps">DAML</span> and <span class="caps">JSON</span> natively, and can be taught other languages. It provides gateways for harnessing the power of your app: Via <span class="caps">DAML</span>, RESTfully, from emails, texts, tweets, anything&#8212;all you need is a gateway, and Daimio handles the rest.</p>
+  <p>Daimio is built on the classic <span class="caps">LAMP</span> stack (Linux, Apache, <span class="caps">PHP</span> and MySQL), plus <a href="http://www.mongodb.org">MongoDB</a>. These proven open-source solutions provide the strategic underpinnings of all of our products.</p>
+  <p class="cta">Developers: <a href="http://www.daimio.org/">View Daimio documentation</a> and <a href="http://www.daimio.org/terminal">try out the terminal interface</a></p>
+  <h2>Self-Generating <span class="caps">API</span></h2>
+  <p><strong><span class="caps">DAML</span></strong>, our scripting language, consolidates templating, application commands, and even the scaffolding commands necessary to create Web sites and applications. It&#8217;s extended in a predictable way by new application models, allowing concurrent development of interface and application logic. Your app gets the full power of a custom-fit domain-specific language (DSL) as a byproduct of this automated process.</p>
+  <h2>Engines</h2>
+  <p><strong>Engines solve abstract problems.</strong> They handle the heavy lifting behind the scenes of the applications we build and allow us to change course without changing a line of code.</p>
+  <h3>Bonsai</h3>
+  <p><strong>Bonsai</strong> is our user-configurable auditing engine. It enables functions related to auditing, testing, and scoring, including:</p>
+  <ul>
+    <li>Protocol versioning, merging, and instantiating</li>
+    <li>Question type management and synchronization</li>
+    <li>Scoring methods</li>
+    <li>Workflow management</li>
+  </ul>
+  <h3>Soba</h3>
+  <p><strong>Soba</strong> gives users control of custom interfaces, such as dashboards and reports. It provides the integrated development environment (IDE) for <span class="caps">DAML</span> to allow user control over workflows and scoring mechanisms. It solves generalized problems related to nodetrees, directed acyclic graphs, and source compilation.</p>
+  <h2>Shared development and continuous improvement</h2>
+  <p>We actively develop our core technologies outside of dedicated production cycles and reinvest in our partners as our ideas and insights advance. We share these breakthroughs with all of our partners.</p>

@@ -1,0 +1,22 @@
+
+<ul class="nav nav-pills nav-stacked">
+
+    <li><a href="{@SITE.path}/work-with-us/">Overview</a></li>
+
+
+    <li class="{:work-with-us/box-lunch | is in @PAGE.path | then :active}">
+      <a href="{@SITE.path}/work-with-us/box-lunch">
+        Box Lunch
+      </a>
+    </li>
+
+
+    <li class="{:work-with-us/takeout | is in @PAGE.path | then :active}">
+      <a href="{@SITE.path}/work-with-us/takeout">
+        Takeout
+      </a>
+    </li>
+
+
+
+  </ul>

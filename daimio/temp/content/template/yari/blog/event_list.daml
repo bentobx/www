@@ -1,0 +1,14 @@
+<li>
+  <p class="date">
+    {begin multiday}
+      {event_start_date | time represent as "M d"}
+      {begin end_date | if {:0000 | is in event_end_date | not}}
+        - {event_end_date | time represent as "M d"}
+      {end end_date}  
+    {end multiday}
+    {begin oneday | if {event_end_date | is like event_start_date} else $multiday}
+      {event_start_date | time represent as "M d"}
+    {end oneday}
+  </p>
+  <a class="title" title="{title}" href="{@SITE.path}/blog/{id}/{publish_date | time represent as "d-m-Y"}/{title | string url_encode}">{title}</a>
+</li>

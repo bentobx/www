@@ -1,0 +1,74 @@
+<a href="{@SITE.path}/yari/product" class="button add"><span>Add new product</span></a>
+
+<table border="0" cellspacing="0" cellpadding="0" class="action-bubbler">
+  <thead>
+    <tr>
+    <th>Name</th>
+    <th>No.</th>
+    <th>Options</th>
+    <th>Price</th>
+    <th>Image</th>
+  </tr>
+</thead>
+<tbody>
+  {begin products | merge with @products}
+  <tr id="row-{id}">
+    <td class="title" onclick="window.location='{@SITE.path}/yari/product/{id}'"><span>{item_name}</span></td>
+    <td>{item_number}</td>
+    <td>
+  
+    <strong>{option_list_1_name}</strong>
+    <p id="{option_list_1_name}-{id}">
+      {merge string "{value}" with option_list_1_choices glue ", "}
+    </p>
+    <strong>{option_list_2_name}</strong>
+    <p id="{option_list_2_name}-{id}">
+      {merge string "{value}" with option_list_2_choices glue ", "}
+</p>
+</td>
+    <td>{@currency_symbol}{price} <span class="currency">{@currency}</span></td>
+    <td><img src="{image.url.#1}" alt="{title}" style="max-width:150px;">
+      <div id="actions_row-{id}" class="action-bubble">
+      <ul class="options">
+      <li>
+        <a href="{@SITE.path}/yari/product/{id}" class="button edit"><span>Edit</span></a>
+        </li>
+        <li>
+        <a class="button delete" title="{item_name}"><span>Delete</span></a>
+          <form method="post" ENCTYPE="multipart/form-data" accept-charset="utf-8" id="delete_product_{id}">
+            <input type="hidden" name="row" value="{id}">
+            <textarea name="commands" style="display:none">
+              {begin verbatim | process escape} 
+              {if {data destroy form :products rows #row}
+              then "{page redirect to {"yari/shop"}{notice set value "Product deleted"}}"
+            }
+            {end verbatim}
+          </textarea>
+        </form>
+        
+        
+        
+        </li>
+        </ul>
+      </div>
+    </td>
+  </tr>
+  {end products}
+</tbody>
+</table>
+
+
+{begin js | process escape}
+<script>
+$(document).ready(function(){
+
+
+  $('table').tablesorter(
+    {	widthFixed: true,
+      widgets: ['zebra'],
+      headers: {
+        2: { sorter: false}
+        }})
+  }); 
+</script>
+{end js}

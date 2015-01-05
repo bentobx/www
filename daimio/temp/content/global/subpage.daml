@@ -1,0 +1,16 @@
+{content fetch where {"path = '{#1}/{#subpage}'"} | > :content | ""}
+{begin page | merge with @content}
+  <section>
+    <div id="{path | string transform old {"/{#1}\//"} new "" }">
+      {/ TODO: clean this up }
+      {data fetch form :images where {"subpage_handle = 'page/{path}'"} | > :image | ""}
+      {begin image | if @image else ""}
+        <img src="{@image.#1.image.url}" alt="{alt}">
+      {end image}
+
+      {value | string textile}
+
+    </div>
+  </section>
+
+{end page}

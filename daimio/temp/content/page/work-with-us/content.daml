@@ -1,0 +1,28 @@
+<h1>Work With Us</h1>
+
+<h2>Let's do something great</h2>
+
+<p class="lead">We're ready to build businesses with interesting, passionate idea people.</p>
+
+<div class="item">
+  <h2>Box Lunch <small class="pull-right time">$250 / 2 hours</small></h2>
+  <p class="price"></p>
+  <p>Have a Web, technology, or business problem and need an ear? We&#8217;d love to get to know you, and give you a quick, easy-to-follow plan to solve a problem you have now. Ready to take notes?</p>
+  <p><a href="{@SITE.path}/work-with-us/box-lunch" class="more" title="More about Box Lunch, our intense quick-wins session">More about Box Lunch, our intense quick-wins session</a></p>
+</div>
+<div class="item">
+  <h2>Takeout <small class="pull-right">$10k / 2 months</small></h2>
+
+  <p>Refine your social marketing strategy, focus on customer development, and break new ground.</p>
+  <p>Is your site not working for you? Know it&#8217;s time to innovate but don&#8217;t know where to start? Let us join you and your team for two months.</p>
+  <p><a href="{@SITE.path}/work-with-us/takeout" class="more" title="More about Takeout, our customer development bootcamp">More about Takeout, our customer development bootcamp</a></p>
+</div>
+<div class="item">
+  <h2>Partnership <small class="pull-right">Equity or profit share / 18 months+</small></h2>
+
+  <p>Looking for a technical co-founder? Product strategist? How about a whole team of highly experienced designers, engineers and business experts who can jump in and help you quickly test your business model, then scale and grow a sustainable company?</p>
+
+  <p>We invest our time and talent in interesting, sustainable business ideas. We are not an incubator or an accelerator. We <strong>fortify</strong> startups, giving them the support they need to leap, learn, and adapt. Make our team yours. </p>
+
+  <p><a href="{@SITE.path}/partnership" class="more" title="Bento Box partnership program">More about our partnership program</a></p>
+</div>
